@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import {Row} from "reactstrap";
-
 import {SubscribeForm} from "./components/SubscribeForm";
 import {MessageItem} from "./components/MessageItem";
 import Mqtt from 'mqtt';
@@ -12,16 +11,16 @@ let client;
 export default class App extends React.Component {
 
     state = {
-        newTopic: "",
+        newTopic: '',
         topics: [],
         messages: [
             {
                 topic: "News",
-                text: "Whatzuuup!"
+                text: "Trump is new president!"
             },
             {
                 topic: "Jobs",
-                text: "Keine für dich!"
+                text: "No jobs available at the moment"
             }
         ]
     };
@@ -41,19 +40,17 @@ export default class App extends React.Component {
 
         client.on('connect', function () {
             console.log('connected');
-            // client.subscribe('voting');
         });
 
         client.on('message', this.messageHandler);
     }
-
 
     render() {
         return (
             <div>
                 <h1>WELCOME TO SUBSCRIBER CLIENT</h1>
                 <Row>
-                    <SubscribeForm subscribeHandler={this.subscribe}
+                    <SubscribeForm subscribeHandler={this.subscribeToTopic}
                                    topicHandler={e => this.topicHandler(e)}
                     />
 
@@ -63,8 +60,9 @@ export default class App extends React.Component {
 
                 </Row>
                 <Row>
-                    {this.state.messages.map((messageItem, i) => <MessageItem key={i}
-                                                                              messageItem={messageItem}
+                    {this.state.messages.map((messageItem, i) =>
+                        <MessageItem key={i}
+                                     messageItem={messageItem}
                         />
                     )}
                 </Row>
@@ -88,25 +86,27 @@ export default class App extends React.Component {
         })
     };
 
-    subscribe = () => {
+    subscribeToTopic = () => {
 
         if (!this.state.topics.includes(this.state.newTopic)
             && this.state.newTopic.length > 0) {
+
             const topic = this.state.newTopic;
 
             this.setState(state => ({
-                topics: [...state.topics, topic],
-                newTopic: ""
+                topics: [...state.topics, topic]
             }));
+
             client.subscribe(topic);
-        }
-        else {
-            console.log("Element ist schon vorhanden: " + this.state.newTopic );
+            console.log("subscribed to topic: " + topic)
+
+        } else {
+            console.log("already to topic subscribed: " + this.state.newTopic);
         }
     };
 
     unsubscribeHandler = (topic) => {
-        console.log("unsubscribed " + topic);
+        console.log("unsubscribed from topic: " + topic);
         const index = this.state.topics.indexOf(topic);
 
         let currentTopics = [...this.state.topics];
@@ -120,6 +120,6 @@ export default class App extends React.Component {
     };
 
     componentWillUnmount() {
-        // client.end(true);
+        client.end(true);
     }
 }
