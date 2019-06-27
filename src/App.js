@@ -11,19 +11,20 @@ export default class App extends React.Component {
         message: [
             {
                 topic: "News",
-                text: "Whatzuuup!",
-                date: new Date().toLocaleTimeString()
+                text: "Whatzuuup!"
             },
             {
                 topic: "Jobs",
-                text: "Keine für dich!",
-                date: new Date().toLocaleTimeString()
+                text: "Keine für dich!"
             }
         ]
     }
 
     componentDidMount() {
+
+
     }
+
 
     render() {
         return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Col, Row, Card, CardBody, CardTitle, CardText, Button} from "reactstrap";
+import {Col, Row, Card, CardBody, CardTitle, CardText} from "reactstrap";
 
 
 export const MessageItem = ({messageItem}) =>
@@ -9,7 +9,6 @@ export const MessageItem = ({messageItem}) =>
                 <CardBody>
                     <CardTitle> {messageItem.topic} </CardTitle>
                     <CardText> {messageItem.text} </CardText>
-                    <CardText> {messageItem.date} </CardText>
                 </CardBody>
             </Card>
         </Col>
