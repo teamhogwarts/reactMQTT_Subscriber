@@ -78,7 +78,6 @@ export default class App extends React.Component {
         const response = JSON.parse(message);
 
         this.setState(state => ({
-            topics: [...state.topics, response.topic],
             messages: [...state.messages, response]
         }));
     };
