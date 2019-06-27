@@ -20,7 +20,7 @@ export default class App extends React.Component {
                 text: "Keine für dich!"
             }
         ]
-    }
+    };
 
     componentDidMount() {
         const SERVER_URL = process.env.REACT_APP_MQTT_SERVER_URL;
@@ -48,7 +48,9 @@ export default class App extends React.Component {
         return (
             <div>
                 <h1>WELCOME TO SUBSCRIBER CLIENT</h1>
-                <SubscribeForm subscribeHandler={(topic) => this.subscribe(topic)}/>
+                <SubscribeForm subscribeHandler={this.subscribe}
+                                topicHandler={e => this.topicHandler(e)}
+                />
                 {this.state.messages.map((messageItem, i) => <MessageItem key={i}
                                                                          messageItem={messageItem}
                     />
@@ -68,8 +70,14 @@ export default class App extends React.Component {
         }));
     };
 
-    subscribe = (topic) => {
-        alert(topic);
+    topicHandler = (topic) => {
+        this.setState(state => ({
+            topics: [...state.topics, topic]
+        }))
+    };
+
+    subscribe = () => {
+        alert(this.state.topics[this.state.topics.length - 1]);
         //client.subscribe(topic);
     };
 
