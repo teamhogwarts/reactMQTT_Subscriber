@@ -62,10 +62,12 @@ export default class App extends React.Component {
                     />
 
                 </Row>
-                {this.state.messages.map((messageItem, i) => <MessageItem key={i}
-                                                                          messageItem={messageItem}
-                    />
-                )}
+                <Row>
+                    {this.state.messages.map((messageItem, i) => <MessageItem key={i}
+                                                                              messageItem={messageItem}
+                        />
+                    )}
+                </Row>
             </div>
         )
     }
@@ -89,7 +91,8 @@ export default class App extends React.Component {
 
     subscribe = () => {
 
-        if(!this.state.topics.includes(this.state.newTopic)){
+        if (!this.state.topics.includes(this.state.newTopic)
+            && this.state.newTopic.length > 0) {
             const topic = this.state.newTopic;
 
             this.setState(state => ({
