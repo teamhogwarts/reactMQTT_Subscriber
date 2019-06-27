@@ -1,14 +1,18 @@
 import React from 'react';
 import './App.css';
+import {Row} from "reactstrap";
+
 import {SubscribeForm} from "./components/SubscribeForm";
 import {MessageItem} from "./components/MessageItem";
 import Mqtt from 'mqtt';
+import {SubscribeList} from "./components/SubscribeList";
 
 let client;
 
 export default class App extends React.Component {
 
     state = {
+        newTopic: "",
         topics: [],
         messages: [
             {
@@ -48,11 +52,18 @@ export default class App extends React.Component {
         return (
             <div>
                 <h1>WELCOME TO SUBSCRIBER CLIENT</h1>
-                <SubscribeForm subscribeHandler={this.subscribe}
-                                topicHandler={e => this.topicHandler(e)}
-                />
+                <Row>
+                    <SubscribeForm subscribeHandler={this.subscribe}
+                                   topicHandler={e => this.topicHandler(e)}
+                    />
+
+                    <SubscribeList allTopics={this.state.topics}
+                                   unsubscribeHandler={e => this.unsubscribeHandler(e)}
+                    />
+
+                </Row>
                 {this.state.messages.map((messageItem, i) => <MessageItem key={i}
-                                                                         messageItem={messageItem}
+                                                                          messageItem={messageItem}
                     />
                 )}
             </div>
@@ -64,22 +75,32 @@ export default class App extends React.Component {
 
         const response = JSON.parse(message);
 
-        this.setState( state => ({
+        this.setState(state => ({
             topics: [...state.topics, response.topic],
             messages: [...state.messages, response]
         }));
     };
 
     topicHandler = (topic) => {
-        this.setState(state => ({
-            topics: [...state.topics, topic]
-        }))
+        this.setState({
+            newTopic: topic
+        })
     };
 
     subscribe = () => {
-        const topic = this.state.topics[this.state.topics.length - 1];
+        const topic = this.state.newTopic;
+
+        this.setState(state => ({
+            topics: [...state.topics, topic],
+            newTopic: ""
+        }));
         client.subscribe(topic);
     };
+
+    unsubscribeHandler = (topic) => {
+        console.log("unsubscribed " + topic);
+        client.unsubscribe(topic)
+    }
 
     componentWillUnmount() {
         // client.end(true);

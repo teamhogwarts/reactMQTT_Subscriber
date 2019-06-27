@@ -1,10 +1,10 @@
 import React from 'react';
-import {Col, Input, Row, Card, CardBody, CardTitle, Button} from "reactstrap";
+import {Col, Input, Card, CardBody, CardTitle, Button} from "reactstrap";
 
 
 export const SubscribeForm = ({subscribeHandler, topicHandler}) =>
-    <Row>
-        <Col md="6">
+
+    <Col md="8">
             <Card body inverse color="dark" className="mx-5">
                 <CardBody>
                     <CardTitle><strong>Subribe to Topic</strong></CardTitle>
@@ -17,6 +17,5 @@ export const SubscribeForm = ({subscribeHandler, topicHandler}) =>
                     <Button color="primary" onClick={() => subscribeHandler()}>Subscribe</Button>
                 </CardBody>
             </Card>
-        </Col>
-    </Row>;
+    </Col>;
 
