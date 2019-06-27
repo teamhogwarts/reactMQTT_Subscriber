@@ -66,7 +66,7 @@ export default class App extends React.Component {
 
         this.setState( state => ({
             topics: [...state.topics, response.topic],
-            messages: [...state.messages, response.text]
+            messages: [...state.messages, response]
         }));
     };
 
@@ -77,8 +77,8 @@ export default class App extends React.Component {
     };
 
     subscribe = () => {
-        alert(this.state.topics[this.state.topics.length - 1]);
-        //client.subscribe(topic);
+        const topic = this.state.topics[this.state.topics.length - 1];
+        client.subscribe(topic);
     };
 
     componentWillUnmount() {

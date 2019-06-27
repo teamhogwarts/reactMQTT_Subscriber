@@ -2,7 +2,7 @@ import React from 'react';
 import {Col, Input, Row, Card, CardBody, CardTitle, Button} from "reactstrap";
 
 
-export const SubscribeForm = (subscribeHandler, topicHandler) =>
+export const SubscribeForm = ({subscribeHandler, topicHandler}) =>
     <Row>
         <Col md="6">
             <Card body inverse color="dark" className="mx-5">
