@@ -88,19 +88,34 @@ export default class App extends React.Component {
     };
 
     subscribe = () => {
-        const topic = this.state.newTopic;
 
-        this.setState(state => ({
-            topics: [...state.topics, topic],
-            newTopic: ""
-        }));
-        client.subscribe(topic);
+        if(!this.state.topics.includes(this.state.newTopic)){
+            const topic = this.state.newTopic;
+
+            this.setState(state => ({
+                topics: [...state.topics, topic],
+                newTopic: ""
+            }));
+            client.subscribe(topic);
+        }
+        else {
+            console.log("Element ist schon vorhanden: " + this.state.newTopic );
+        }
     };
 
     unsubscribeHandler = (topic) => {
         console.log("unsubscribed " + topic);
+        const index = this.state.topics.indexOf(topic);
+
+        let currentTopics = [...this.state.topics];
+        currentTopics.splice(index, 1);
+
+        this.setState({
+            topics: currentTopics
+        });
+
         client.unsubscribe(topic)
-    }
+    };
 
     componentWillUnmount() {
         // client.end(true);
