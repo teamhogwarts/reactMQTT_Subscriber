@@ -15,10 +15,12 @@ export default class App extends React.Component {
         topics: [],
         messages: [
             {
+                time: "14:33:12",
                 topic: "News",
                 text: "Trump is new president!"
             },
             {
+                time: "17:13:55",
                 topic: "Jobs",
                 text: "No jobs available at the moment"
             }
@@ -39,7 +41,7 @@ export default class App extends React.Component {
         });
 
         client.on('connect', function () {
-            console.log('connected');
+            console.log('connected with mqtt server ' + SERVER_URL);
         });
 
         client.on('message', this.messageHandler);
@@ -73,7 +75,8 @@ export default class App extends React.Component {
     messageHandler = (topic, message) => {
         console.log("message received over topic '%s'", topic);
 
-        const response = JSON.parse(message);
+        let response = JSON.parse(message);
+        response.time = new Date().toLocaleTimeString();
 
         this.setState(state => ({
             messages: [...state.messages, response]

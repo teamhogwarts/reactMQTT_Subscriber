@@ -14,7 +14,7 @@ export const SubscribeForm = ({subscribeHandler, topicHandler}) =>
                        onChange={e => topicHandler(e.target.value)}
                 />
                 <Button color="primary" onClick={() => {
-                    subscribeHandler()
+                    subscribeHandler();
                     document.getElementById('inputText').value = '';
                 }}
                 >Subscribe</Button>
