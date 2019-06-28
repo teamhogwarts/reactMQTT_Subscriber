@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import {Row} from "reactstrap";
 import {SubscribeForm} from "./components/SubscribeForm";
 import {MessageItem} from "./components/MessageItem";
@@ -97,7 +96,8 @@ export default class App extends React.Component {
             const topic = this.state.newTopic;
 
             this.setState(state => ({
-                topics: [...state.topics, topic]
+                topics: [...state.topics, topic],
+                newTopic: ""
             }));
 
             client.subscribe(topic);
