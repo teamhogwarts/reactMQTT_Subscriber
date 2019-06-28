@@ -6,7 +6,7 @@ export const SubscribeForm = ({subscribeHandler, topicHandler}) =>
     <Col md="8">
         <Card body inverse color="dark" className="mx-5 p-0">
             <CardBody>
-                <CardTitle><strong>Subribe to Topic</strong></CardTitle>
+                <CardTitle><strong>Subscribe to Topic</strong></CardTitle>
                 <Input id='inputText'
                        type="text"
                        placeholder={'Enter the Topic'}
