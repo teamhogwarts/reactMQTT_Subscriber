@@ -12,18 +12,7 @@ export default class App extends React.Component {
     state = {
         newTopic: '',
         topics: [],
-        messages: [
-            {
-                time: "14:33:12",
-                topic: "News",
-                text: "Trump is new president!"
-            },
-            {
-                time: "17:13:55",
-                topic: "Jobs",
-                text: "No jobs available at the moment"
-            }
-        ]
+        messages: []
     };
 
     componentDidMount() {
